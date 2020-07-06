@@ -12,17 +12,13 @@ class UserService(
         private val mappingService: MappingService
 ) {
 
-    fun save(request: SaveUserRequestDTO): UserDTO {
-        return mappingService.map(
-                userRepository.save(
-                        mappingService.map(request)
-                )
-        )
-    }
+    fun save(request: SaveUserRequestDTO): UserDTO = mappingService.map(
+            userRepository.save(
+                    mappingService.map(request)
+            )
+    )
 
-    fun findAll(): FindUsersResponseDTO {
-        return mappingService.map(
-                userRepository.findAll()
-        )
-    }
+    fun findAll(): FindUsersResponseDTO = mappingService.map(
+            userRepository.findAll()
+    )
 }
