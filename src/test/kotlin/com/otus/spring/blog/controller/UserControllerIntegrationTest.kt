@@ -24,4 +24,13 @@ class UserControllerIntegrationTest(
                 Lists.newArrayList(UserDTO(1, "morty"), UserDTO(2, "vagner"))
         )
     }
+
+    @Test
+    fun `Load user by name`() {
+        val entity = restTemplate.getForEntity<FindUsersResponseDTO>("/api/v1/users?name=mor")
+        assertThat(entity.statusCode).isEqualTo(HttpStatus.OK)
+        assertThat(entity.body).extracting("content").isEqualToComparingFieldByField(
+                Lists.newArrayList(UserDTO(1, "morty"))
+        )
+    }
 }

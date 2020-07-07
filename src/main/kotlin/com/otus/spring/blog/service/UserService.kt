@@ -1,9 +1,12 @@
 package com.otus.spring.blog.service
 
+import com.otus.spring.blog.domain.User
 import com.otus.spring.blog.dto.FindUsersResponseDTO
 import com.otus.spring.blog.dto.SaveUserRequestDTO
 import com.otus.spring.blog.dto.UserDTO
 import com.otus.spring.blog.repository.UserRepository
+import org.springframework.data.domain.Example
+import org.springframework.data.domain.ExampleMatcher
 import org.springframework.stereotype.Service
 
 @Service
@@ -21,7 +24,11 @@ class UserService(
             )
     )
 
-    fun findAll(): FindUsersResponseDTO = mappingService.map(
-            userRepository.findAll()
+    fun findAll(name: String?): FindUsersResponseDTO = mappingService.map(
+            userRepository.findAll(
+                    Example.of(User(name), ExampleMatcher.matchingAll()
+                            .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING))
+            )
     )
+
 }
