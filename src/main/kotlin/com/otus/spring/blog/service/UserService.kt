@@ -24,11 +24,14 @@ class UserService(
             )
     )
 
-    fun findAll(name: String?): FindUsersResponseDTO = mappingService.map(
-            userRepository.findAll(
-                    Example.of(User(name), ExampleMatcher.matchingAll()
-                            .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING))
-            )
-    )
+    fun findAll(firstName: String?, lastName: String?, email: String?): FindUsersResponseDTO =
+            mappingService.map(userRepository.findAll(
+                    Example.of(User(email, firstName, lastName), matcher())
+            ))
 
+    fun matcher(): ExampleMatcher = ExampleMatcher.matchingAll()
+            .withIgnorePaths("createdAt")
+            .withMatcher("firstName", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
+            .withMatcher("lastName", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
+            .withMatcher("email", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
 }

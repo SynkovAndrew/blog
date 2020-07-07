@@ -1,6 +1,7 @@
-insert into users (id, name)
-values (1, 'morty'),
-        (2, 'vagner');
+insert into users (id, first_name, last_name, email, birthday, created_at)
+values (1, 'Morty', 'Razen', 'mora@gmail.com', '1991-01-01', '2019-01-08 00:05:06'),
+        (2, 'Richard', 'Vagner','rivas@gmail.com', '1946-02-01', '2013-01-08 04:00:06'),
+        (3, 'Mahart', 'Towad', 'masdfg@gmail.com', '1992-03-03', '2016-01-08 00:00:01');
 
 insert into messages (id, user_id, text, created_at)
 values (1, 1, 'This is my first message here!', '2017-01-08 04:05:06'),

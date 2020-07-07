@@ -4,7 +4,11 @@ drop table if exists messages cascade;
 create table users
 (
     id   serial primary key,
-    name varchar(255) not null
+    first_name varchar(255),
+    last_name varchar(255),
+    email varchar(255) not null,
+    birthday date,
+    created_at timestamp not null
 );
 
 create table messages

@@ -11,18 +11,16 @@ import java.util.*
 class MappingService(
         private val userRepository: UserRepository
 ) {
-    fun map(user: User) = UserDTO(user.id, user.name)
+    fun map(u: User) = UserDTO(u.id, u.firstName, u.lastName, u.email, u.birthday, u.createdAt)
 
-    fun map(message: Message) = MessageDTO(message.createdAt, message.id, message.user?.id, message.text)
+    fun map(m: Message) = MessageDTO(m.createdAt, m.id, m.user?.id, m.text)
 
-    fun map(request: SaveUserRequestDTO) = User(request.name)
+    fun map(r: SaveUserRequestDTO) = User(r.email, r.firstName, r.lastName, r.birthday)
 
-    fun map(request: SaveMessageRequestDTO): Optional<Message> {
-        return userRepository.findById(request.userId)
-                .map { user -> Message(user, request.text) }
-    }
+    fun map(r: SaveMessageRequestDTO): Optional<Message> =
+            userRepository.findById(r.userId).map { user -> Message(user, r.text) }
 
-    fun map(users: List<User>) = FindUsersResponseDTO(users.map { user -> map(user) })
+    fun map(us: List<User>) = FindUsersResponseDTO(us.map { u -> map(u) })
 
-    fun map(messages: List<Message>) = FindMessagesResponseDTO(messages.map { message -> map(message) })
+    fun map(ms: List<Message>) = FindMessagesResponseDTO(ms.map { m -> map(m) })
 }
