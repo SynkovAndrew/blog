@@ -12,14 +12,16 @@ import org.springframework.boot.test.web.client.getForEntity
 import org.springframework.http.HttpStatus
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class UserControllerIntegrationTest(@Autowired val restTemplate: TestRestTemplate) {
+class UserControllerIntegrationTest(
+        @Autowired val restTemplate: TestRestTemplate
+) {
 
     @Test
     fun `Load all users`() {
         val entity = restTemplate.getForEntity<FindUsersResponseDTO>("/api/v1/users")
         assertThat(entity.statusCode).isEqualTo(HttpStatus.OK)
-/*        assertThat(entity.body).extracting("users").isEqualToComparingFieldByField(
-                Lists.newArrayList(UserDTO(1, "Admin"))
-        )*/
+        assertThat(entity.body).extracting("content").isEqualToComparingFieldByField(
+                Lists.newArrayList(UserDTO(1, "morty"), UserDTO(2, "vagner"))
+        )
     }
 }

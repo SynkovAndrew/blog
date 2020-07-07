@@ -11,6 +11,9 @@ class UserService(
         private val userRepository: UserRepository,
         private val mappingService: MappingService
 ) {
+    fun loadById(userId: Long): UserDTO = userRepository.findById(userId)
+            .map { user -> mappingService.map(user) }
+            .orElse(null)
 
     fun save(request: SaveUserRequestDTO): UserDTO = mappingService.map(
             userRepository.save(
