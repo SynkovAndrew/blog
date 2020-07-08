@@ -20,21 +20,22 @@ export default class TopicsPage extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div>
-                    {
-                        this.state.topics.map((topic) => (
-                            <div className="card text-white bg-primary mb-3 main-div">
-                                <div className="card-header">{topic.title}</div>
-                                <div className="card-body">
-                                    <p className="card-text">{topic.text}</p>
+                <div className="side-margin-30">
+                    <div className="card-deck">
+                        {
+                            this.state.topics.map((topic) => (
+                                <div className="card topic">
+                                    <div className="card-header"><h5>{topic.title}</h5></div>
+                                    <div className="card-body">
+                                        <p className="card-text">{topic.text}</p>
+                                    </div>
+                                    <div className="card-footer">
+                                        <small className="text-muted">{topic.createdAt}</small>
+                                    </div>
                                 </div>
-                                <div className="card-footer">
-                                    <small className="text-muted">{topic.createdAt}</small>
-                                </div>
-                            </div>
-                        ))
-                    }
-
+                            ))
+                        }
+                    </div>
                 </div>
             </React.Fragment>
         )
