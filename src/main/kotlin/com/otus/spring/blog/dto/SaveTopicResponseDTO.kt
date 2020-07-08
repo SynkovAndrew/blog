@@ -2,10 +2,10 @@ package com.otus.spring.blog.dto
 
 import java.time.LocalDateTime
 
-data class TopicDTO(
+data class SaveTopicResponseDTO(
+        val text: String?,
+        val title: String?,
         val createdAt: LocalDateTime?,
         val id: Long?,
-        val user: UserDTO?,
-        val text: String?,
-        val title: String?
+        val userId: Long?
 )

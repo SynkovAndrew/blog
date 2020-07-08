@@ -4,6 +4,7 @@ import com.otus.spring.blog.domain.Topic
 import com.otus.spring.blog.domain.User
 import com.otus.spring.blog.dto.FindTopicsResponseDTO
 import com.otus.spring.blog.dto.SaveTopicRequestDTO
+import com.otus.spring.blog.dto.SaveTopicResponseDTO
 import com.otus.spring.blog.dto.TopicDTO
 import com.otus.spring.blog.repository.TopicRepository
 import org.springframework.data.domain.Example
@@ -20,9 +21,8 @@ class TopicService(
             .map { topic -> mappingService.map(topic) }
             .orElse(null)
 
-    fun save(request: SaveTopicRequestDTO): TopicDTO =
-            mappingService.map(topicRepository.save(mappingService.map(request)))
-
+    fun save(request: SaveTopicRequestDTO): SaveTopicResponseDTO =
+            mappingService.mapToResponse(topicRepository.save(mappingService.map(request)))
 
     fun findAll(userId: Long?, text: String?): FindTopicsResponseDTO =
             mappingService.map(topicRepository.findAll(

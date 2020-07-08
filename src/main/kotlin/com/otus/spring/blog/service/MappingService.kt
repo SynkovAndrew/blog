@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service
 class MappingService {
     fun map(u: User) = UserDTO(u.id, u.firstName, u.lastName, u.email, u.birthday, u.createdAt)
 
-    fun map(t: Topic) = TopicDTO(t.createdAt, t.id, t.user?.id, t.text, t.title)
+    fun map(t: Topic) = TopicDTO(t.createdAt, t.id, map(t.user ?: User()), t.text, t.title)
+
+    fun mapToResponse(t: Topic) = SaveTopicResponseDTO(t.text, t.title, t.createdAt, t.id, t.user?.id)
 
     fun map(c: Comment) = CommentDTO(c.createdAt, c.id, c.user?.id, c.topic?.id, c.text)
 

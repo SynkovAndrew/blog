@@ -1,8 +1,6 @@
 package com.otus.spring.blog.controller
 
-import com.otus.spring.blog.dto.FindTopicsResponseDTO
-import com.otus.spring.blog.dto.SaveTopicRequestDTO
-import com.otus.spring.blog.dto.TopicDTO
+import com.otus.spring.blog.dto.*
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.util.Lists
 import org.assertj.core.util.Maps
@@ -32,14 +30,16 @@ class TopicControllerIntegrationTest(
                         TopicDTO(
                                 LocalDateTime.of(LocalDate.of(2019, 1, 8), LocalTime.of(13, 5, 12)),
                                 3,
-                                2,
+                                UserDTO(2, "Richard", "Vagner", "rivas@gmail.com", LocalDate.of(1946, 2, 1),
+                                        LocalDateTime.of(LocalDate.of(2013, 1, 8), LocalTime.of(4, 0, 6))),
                                 "Interesting site",
                                 "My first"
                         ),
                         TopicDTO(
                                 LocalDateTime.of(LocalDate.of(2019, 1, 8), LocalTime.of(15, 5, 6)),
                                 4,
-                                2,
+                                UserDTO(2, "Richard", "Vagner", "rivas@gmail.com", LocalDate.of(1946, 2, 1),
+                                        LocalDateTime.of(LocalDate.of(2013, 1, 8), LocalTime.of(4, 0, 6))),
                                 "The weather is horrible",
                                 "Weather"
                         )
@@ -49,12 +49,12 @@ class TopicControllerIntegrationTest(
 
     @Test
     fun `Save new topic`() {
-        val saved = restTemplate.postForObject<TopicDTO>("/api/v1/topic",
+        val saved = restTemplate.postForObject<SaveTopicResponseDTO>("/api/v1/topic",
                 SaveTopicRequestDTO("Can somebody help me with my homework?", "Need help!", 1)
         )
         assertThat(saved).extracting("id").isNotNull()
-        assertThat(saved).extracting("userId").isEqualTo(1L)
         assertThat(saved).extracting("createdAt").isNotNull()
+        assertThat(saved).extracting("userId").isEqualTo(1L)
         assertThat(saved).extracting("title").isEqualTo("Need help!")
         assertThat(saved).extracting("text").isEqualTo("Can somebody help me with my homework?")
 
@@ -62,7 +62,10 @@ class TopicControllerIntegrationTest(
         val found = restTemplate.getForObject<TopicDTO>("/api/v1/topic/{topicId}",
                 Maps.newHashMap("topicId", topicId))
         assertThat(found).extracting("id").isEqualTo(topicId)
-        assertThat(found).extracting("userId").isEqualTo(1L)
+        assertThat(found).extracting("user").isEqualToComparingFieldByField(
+                UserDTO(1, "Morty", "Razen", "mora@gmail.com", LocalDate.of(1991, 1, 1),
+                        LocalDateTime.of(LocalDate.of(2019, 1, 8), LocalTime.of(0, 5, 6)))
+        )
         assertThat(found).extracting("createdAt").isNotNull()
         assertThat(found).extracting("title").isEqualTo("Need help!")
         assertThat(found).extracting("text").isEqualTo("Can somebody help me with my homework?")
