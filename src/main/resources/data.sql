@@ -8,3 +8,7 @@ values (1, 1, 'Hello everyone!', 'This is my first message here!', '2017-01-08 0
         (2, 1, 'Awesome!', 'Oh my god, how good it is!', '2018-01-08 15:05:06'),
         (3, 2, 'My first', 'Interesting site', '2019-01-08 13:05:12'),
         (4, 2, 'Weather','The weather is horrible', '2019-01-08 15:05:06');
+
+insert into comments (id, user_id, topic_id, text, created_at)
+values (1, 2, 1, 'Hi! Good to see you here!', '2019-01-08 04:05:06'),
+        (2, 3, 1, 'Good boys!!!', '2018-01-08 15:01:06');

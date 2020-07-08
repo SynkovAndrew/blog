@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 class UserController(private val userService: UserService) {
     @PostMapping("api/v1/user")
-    fun save(request: SaveUserRequestDTO) = userService.save(request)
+    fun save(@RequestBody request: SaveUserRequestDTO) = userService.save(request)
 
     @GetMapping("api/v1/users")
     fun findAll(
