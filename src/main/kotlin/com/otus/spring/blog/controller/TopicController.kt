@@ -15,4 +15,7 @@ class TopicController(private val topicService: TopicService) {
             @RequestParam("userId") userId: Long?,
             @RequestParam("text") text: String?
     ) = topicService.findAll(userId, text)
+
+    @GetMapping("api/v1/topic/{topicId}")
+    fun loadById(@PathVariable("topicId") topicId: Long) = topicService.loadById(topicId)
 }

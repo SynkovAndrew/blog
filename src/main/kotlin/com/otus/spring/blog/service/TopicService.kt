@@ -16,6 +16,10 @@ class TopicService(
         private val mappingService: MappingService
 ) {
 
+    fun loadById(topicId: Long): TopicDTO = topicRepository.findById(topicId)
+            .map { topic -> mappingService.map(topic) }
+            .orElse(null)
+
     fun save(request: SaveTopicRequestDTO): TopicDTO =
             mappingService.map(topicRepository.save(mappingService.map(request)))
 

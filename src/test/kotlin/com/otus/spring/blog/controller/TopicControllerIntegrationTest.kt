@@ -1,16 +1,17 @@
 package com.otus.spring.blog.controller
 
 import com.otus.spring.blog.dto.FindTopicsResponseDTO
-import com.otus.spring.blog.dto.SaveCommentRequestDTO
 import com.otus.spring.blog.dto.SaveTopicRequestDTO
 import com.otus.spring.blog.dto.TopicDTO
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.util.Lists
+import org.assertj.core.util.Maps
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.test.web.client.getForEntity
+import org.springframework.boot.test.web.client.getForObject
 import org.springframework.boot.test.web.client.postForObject
 import org.springframework.http.HttpStatus
 import java.time.LocalDate
@@ -48,13 +49,22 @@ class TopicControllerIntegrationTest(
 
     @Test
     fun `Save new topic`() {
-        val entity = restTemplate.postForObject<TopicDTO>("/api/v1/topic",
+        val saved = restTemplate.postForObject<TopicDTO>("/api/v1/topic",
                 SaveTopicRequestDTO("Can somebody help me with my homework?", "Need help!", 1)
         )
-        assertThat(entity).extracting("id").isNotNull()
-        assertThat(entity).extracting("userId").isEqualTo(1L)
-        assertThat(entity).extracting("createdAt").isNotNull()
-        assertThat(entity).extracting("title").isEqualTo("Need help!")
-        assertThat(entity).extracting("text").isEqualTo("Can somebody help me with my homework?")
+        assertThat(saved).extracting("id").isNotNull()
+        assertThat(saved).extracting("userId").isEqualTo(1L)
+        assertThat(saved).extracting("createdAt").isNotNull()
+        assertThat(saved).extracting("title").isEqualTo("Need help!")
+        assertThat(saved).extracting("text").isEqualTo("Can somebody help me with my homework?")
+
+        val topicId = saved?.id
+        val found = restTemplate.getForObject<TopicDTO>("/api/v1/topic/{topicId}",
+                Maps.newHashMap("topicId", topicId))
+        assertThat(found).extracting("id").isEqualTo(topicId)
+        assertThat(found).extracting("userId").isEqualTo(1L)
+        assertThat(found).extracting("createdAt").isNotNull()
+        assertThat(found).extracting("title").isEqualTo("Need help!")
+        assertThat(found).extracting("text").isEqualTo("Can somebody help me with my homework?")
     }
 }
