@@ -1,5 +1,5 @@
 drop table if exists users cascade;
-drop table if exists messages cascade;
+drop table if exists topics cascade;
 
 create table users
 (
@@ -11,10 +11,11 @@ create table users
     created_at timestamp not null
 );
 
-create table messages
+create table topics
 (
     id   serial primary key,
     user_id  integer not null references users (id),
+    title varchar(100) not null,
     text varchar(255) not null,
     created_at timestamp not null
 );

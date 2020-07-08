@@ -1,7 +1,7 @@
 package com.otus.spring.blog.controller
 
-import com.otus.spring.blog.dto.FindMessagesResponseDTO
-import com.otus.spring.blog.dto.MessageDTO
+import com.otus.spring.blog.dto.FindTopicsResponseDTO
+import com.otus.spring.blog.dto.TopicDTO
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.util.Lists
 import org.junit.jupiter.api.Test
@@ -15,27 +15,29 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class MessageControllerIntegrationTest(
+class TopicControllerIntegrationTest(
         @Autowired val restTemplate: TestRestTemplate
 ) {
 
     @Test
-    fun `Load messages of second user`() {
-        val entity = restTemplate.getForEntity<FindMessagesResponseDTO>("/api/v1/user/2/messages")
+    fun `Load topics of second user`() {
+        val entity = restTemplate.getForEntity<FindTopicsResponseDTO>("/api/v1/topics?userId=2")
         assertThat(entity.statusCode).isEqualTo(HttpStatus.OK)
         assertThat(entity.body).extracting("content").isEqualToComparingFieldByField(
                 Lists.newArrayList(
-                        MessageDTO(
+                        TopicDTO(
                                 LocalDateTime.of(LocalDate.of(2019, 1, 8), LocalTime.of(13, 5, 12)),
                                 3,
                                 2,
-                                "Interesting site"
+                                "Interesting site",
+                                "My first"
                         ),
-                        MessageDTO(
+                        TopicDTO(
                                 LocalDateTime.of(LocalDate.of(2019, 1, 8), LocalTime.of(15, 5, 6)),
                                 4,
                                 2,
-                                "The weather is horrible"
+                                "The weather is horrible",
+                                "Weather"
                         )
                 )
         )
