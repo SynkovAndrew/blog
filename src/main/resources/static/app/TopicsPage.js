@@ -17,6 +17,11 @@ export default class TopicsPage extends React.Component {
 
     }
 
+    goToTopic = (topicId) => {
+        const {history} = this.props;
+        history.push('/topic/' + topicId)
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -24,7 +29,7 @@ export default class TopicsPage extends React.Component {
                     <div className="card-deck">
                         {
                             this.state.topics.map((topic) => (
-                                <div className="card topic">
+                                <div className="card topic" onClick={() => this.goToTopic(topic.id)}>
                                     <div className="card-header"><h5>{topic.title}</h5></div>
                                     <div className="card-body">
                                         <p className="card-text">{topic.text}</p>

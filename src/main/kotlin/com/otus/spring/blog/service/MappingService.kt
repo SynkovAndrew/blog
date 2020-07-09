@@ -14,7 +14,9 @@ class MappingService {
 
     fun mapToResponse(t: Topic) = SaveTopicResponseDTO(t.text, t.title, t.createdAt, t.id, t.user?.id)
 
-    fun map(c: Comment) = CommentDTO(c.createdAt, c.id, c.user?.id, c.topic?.id, c.text)
+    fun mapToResponse(c: Comment) = SaveCommentResponseDTO(c.user?.id, c.id, c.topic?.id, c.text)
+
+    fun map(c: Comment) = CommentDTO(c.createdAt, c.id, map(c.user ?: User()), c.topic?.id, c.text)
 
     fun map(r: SaveCommentRequestDTO) = Comment(User(id = r.userId), Topic(id = r.topicId), r.text)
 
@@ -23,6 +25,8 @@ class MappingService {
     fun map(r: SaveTopicRequestDTO) = Topic(User(id = r.userId), r.text, r.title)
 
     fun map(us: List<User>) = FindUsersResponseDTO(us.map { u -> map(u) })
+
+    fun map(cs: List<Comment>) = FindCommentsResponseDTO(cs.map { c -> map(c) })
 
     fun map(ms: List<Topic>) = FindTopicsResponseDTO(ms.map { m -> map(m) })
 }

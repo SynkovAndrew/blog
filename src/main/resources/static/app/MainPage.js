@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {HashRouter, NavLink, Route} from "react-router-dom";
 import UsersPage from "./UsersPage";
 import TopicsPage from "./TopicsPage";
+import TopicPage from "./TopicPage";
 
 export default class MainPage extends React.Component {
     render() {
@@ -25,6 +26,7 @@ export default class MainPage extends React.Component {
                     <div className="content main-div">
                         <Route exact path="/" component={TopicsPage}/>
                         <Route path="/users" component={UsersPage}/>
+                        <Route exact path="/topic/:topicId" component={TopicPage}/>
                     </div>
                 </div>
             </HashRouter>

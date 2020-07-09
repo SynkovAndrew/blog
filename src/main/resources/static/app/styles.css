@@ -6,6 +6,15 @@
     margin-top: 10px
 }
 
+.margin-bottom-0 {
+    margin-bottom: 0px
+}
+
+.comment-text-field {
+     border: 0;
+    width: 100%;
+}
+
 .header-menu {
     font-size: 30px;
 }
@@ -15,7 +24,7 @@
 }
 
 .margin-left {
-   margin-left: 15px;
+    margin-left: 15px;
 }
 
 .details-page {
