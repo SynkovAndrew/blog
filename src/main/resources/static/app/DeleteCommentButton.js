@@ -16,7 +16,7 @@ export class DeleteCommentButton extends Component {
         return (
             <React.Fragment>
                 <button onClick={this.deleteComment}
-                        className="btn btn-danger"
+                        className="btn btn-danger margin-left-5"
                         type='button'>Delete
                 </button>
             </React.Fragment>

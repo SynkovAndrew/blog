@@ -9,7 +9,8 @@ export default class TopicPage extends React.Component {
         this.state = {
             topic: {},
             comments: [],
-            text: ""
+            text: "",
+            commentId: null
         }
     }
 
@@ -41,6 +42,7 @@ export default class TopicPage extends React.Component {
                 body: JSON.stringify({
                     topicId: this.props.match.params.topicId,
                     userId: 1,
+                    commentId: this.state.commentId,
                     text: text
                 }),
                 headers: {
@@ -50,7 +52,8 @@ export default class TopicPage extends React.Component {
                 .then(response => {
                     this.reloadComments()
                     this.setState({
-                        text: ""
+                        text: "",
+                        commentId: null
                     });
                 })
         }
@@ -78,6 +81,15 @@ export default class TopicPage extends React.Component {
         return true
     }
 
+    onEditClick = (commentId) => {
+        this.setState({
+            text: this.state.comments
+                .find(comment => comment.id === commentId)
+                .text,
+            commentId: commentId
+        });
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -86,19 +98,19 @@ export default class TopicPage extends React.Component {
                         <ul className="list-group">
                             <li className="list-group-item" key={index}>
                                 <span>
-                                    <p><span className="badge badge-dark badge-pill">
-                                        {comment.user.firstName + ' ' + comment.user.lastName}
-                                    </span></p>
-                                    <textarea className="comment-text-field"
-                                              disabled={!this.checkAccess}
-                                              onChange={event => this.onCommentTextChange(event, comment.id)}
-                                              value={comment.text}/>
+                                    <p>
+                                        <span className="badge badge-dark badge-pill">
+                                            {comment.user.firstName + ' ' + comment.user.lastName}
+                                        </span>
+                                        <span>
+                                            <button className="btn btn-secondary margin-left-5"
+                                                    onClick={() => this.onEditClick(comment.id)}>Edit</button>
+                                            <DeleteCommentButton commentId={comment.id}
+                                                                 reloadComments={this.reloadComments}/>
+                                        </span>
+                                    </p>
+                                    <p className="text-justify">{comment.text}</p>
                                     <p className="margin-bottom-0"><small>{comment.createdAt}</small></p>
-                                </span>
-                                <span>
-                                    <button>Edit</button>
-                                    <DeleteCommentButton commentId={comment.id}
-                                                         reloadComments={this.reloadComments}/>
                                 </span>
                             </li>
                         </ul>
