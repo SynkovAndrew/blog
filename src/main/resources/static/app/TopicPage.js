@@ -41,7 +41,7 @@ export default class TopicPage extends React.Component {
                 method: "POST",
                 body: JSON.stringify({
                     topicId: this.props.match.params.topicId,
-                    userId: 1,
+                    authorId: 1,
                     commentId: this.state.commentId,
                     text: text
                 }),
@@ -100,7 +100,7 @@ export default class TopicPage extends React.Component {
                                 <span>
                                     <p>
                                         <span className="badge badge-dark badge-pill">
-                                            {comment.user.firstName + ' ' + comment.user.lastName}
+                                            {comment.author.firstName + ' ' + comment.author.lastName}
                                         </span>
                                         <span>
                                             <button className="btn btn-secondary margin-left-5"

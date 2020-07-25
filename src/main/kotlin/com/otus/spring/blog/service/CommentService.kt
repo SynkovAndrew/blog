@@ -31,6 +31,6 @@ class CommentService(
             ))
 
     fun matcher(): ExampleMatcher = ExampleMatcher.matchingAll()
-            .withIgnorePaths("createdAt", "topic.createdAt", "user.createdAt")
+            .withIgnorePaths("createdAt", "topic.createdAt", "author.createdAt")
             .withMatcher("text", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
 }

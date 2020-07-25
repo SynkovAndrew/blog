@@ -1,29 +1,21 @@
 package com.otus.spring.blog.domain
 
-import java.time.LocalDate
-import java.time.LocalDateTime
-import javax.persistence.*
+import javax.persistence.Column
+import javax.persistence.Entity
+import javax.persistence.Id
+import javax.persistence.Table
 
 @Entity
 @Table(name = "users")
-class User(
+class User (
 
-        @Column(name = "email", nullable = false)
-        var email: String? = null,
+    @Column(name = "enabled", nullable = false)
+    var enabled: Boolean = false,
 
-        @Column(name = "first_name", nullable = true)
-        var firstName: String? = null,
+    @Id
+    @Column(name = "username", nullable = false, unique = true, length = 50)
+    var name: String? = null,
 
-        @Column(name = "last_name", nullable = true)
-        var lastName: String? = null,
-
-        @Column(name = "birthday", nullable = true)
-        var birthday: LocalDate? = null,
-
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        var id: Long? = null,
-
-        @Column(nullable = false)
-        var createdAt: LocalDateTime? = LocalDateTime.now()
+    @Column(name = "password", nullable = false, length = 500)
+    var password: String? = null
 )

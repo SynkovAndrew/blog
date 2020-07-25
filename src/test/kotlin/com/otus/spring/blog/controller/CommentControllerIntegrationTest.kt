@@ -27,7 +27,7 @@ class CommentControllerIntegrationTest(
         )
         assertThat(saved).extracting("id").isEqualTo(3L)
         assertThat(saved).extracting("createdAt").isNotNull()
-        assertThat(saved).extracting("userId").isEqualTo(1L)
+        assertThat(saved).extracting("authorId").isEqualTo(1L)
         assertThat(saved).extracting("topicId").isEqualTo(1L)
         assertThat(saved).extracting("text").isEqualTo("I really appreciate it!")
 
@@ -42,7 +42,7 @@ class CommentControllerIntegrationTest(
         )
         assertThat(saved).extracting("id").isEqualTo(1L)
         assertThat(saved).extracting("createdAt").isNotNull()
-        assertThat(saved).extracting("userId").isEqualTo(2L)
+        assertThat(saved).extracting("authorId").isEqualTo(2L)
         assertThat(saved).extracting("topicId").isEqualTo(1L)
         assertThat(saved).extracting("text").isEqualTo("I really appreciate it!")
 

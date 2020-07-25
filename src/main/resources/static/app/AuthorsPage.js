@@ -2,18 +2,18 @@ import React from "react"
 import "./styles.css"
 import "bootstrap/dist/css/bootstrap.css";
 
-export default class UsersPage extends React.Component {
+export default class AuthorsPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            users: []
+            authors: []
         };
     }
 
     componentDidMount() {
-        fetch("/api/v1/users")
+        fetch("/api/v1/authors")
             .then(response => response.json())
-            .then(json => this.setState({users: json.content}));
+            .then(json => this.setState({authors: json.content}));
 
     }
 
@@ -30,10 +30,10 @@ export default class UsersPage extends React.Component {
                         </thead>
                         <tbody>
                         {
-                            this.state.users.map((user, index) => (
+                            this.state.authors.map((author, index) => (
                                 <tr key={index} className="table-row">
-                                    <td>{user.firstName}</td>
-                                    <td>{user.lastName}</td>
+                                    <td>{author.firstName}</td>
+                                    <td>{author.lastName}</td>
                                 </tr>
                             ))
                         }

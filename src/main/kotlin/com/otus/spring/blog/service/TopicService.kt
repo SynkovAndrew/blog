@@ -1,7 +1,7 @@
 package com.otus.spring.blog.service
 
 import com.otus.spring.blog.domain.Topic
-import com.otus.spring.blog.domain.User
+import com.otus.spring.blog.domain.Author
 import com.otus.spring.blog.dto.FindTopicsResponseDTO
 import com.otus.spring.blog.dto.SaveTopicRequestDTO
 import com.otus.spring.blog.dto.SaveTopicResponseDTO
@@ -24,12 +24,12 @@ class TopicService(
     fun save(request: SaveTopicRequestDTO): SaveTopicResponseDTO =
             mappingService.mapToResponse(topicRepository.save(mappingService.map(request)))
 
-    fun findAll(userId: Long?, text: String?): FindTopicsResponseDTO =
+    fun findAll(authorId: Long?, text: String?): FindTopicsResponseDTO =
             mappingService.map(topicRepository.findAll(
-                    Example.of(Topic(User(id = userId), text = text), matcher())
+                    Example.of(Topic(Author(id = authorId), text = text), matcher())
             ))
 
     fun matcher(): ExampleMatcher = ExampleMatcher.matchingAll()
-            .withIgnorePaths("createdAt", "user.createdAt")
+            .withIgnorePaths("createdAt", "author.createdAt")
             .withMatcher("text", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
 }

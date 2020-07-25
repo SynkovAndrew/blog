@@ -2,7 +2,7 @@ import React from 'react'
 import './styles.css'
 import 'bootstrap/dist/css/bootstrap.css';
 import {HashRouter, NavLink, Route} from "react-router-dom";
-import UsersPage from "./UsersPage";
+import AuthorsPage from "./AuthorsPage";
 import TopicsPage from "./TopicsPage";
 import TopicPage from "./TopicPage";
 
@@ -18,14 +18,14 @@ export default class MainPage extends React.Component {
                                     <NavLink className="nav-link" to="/">Topics</NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <NavLink className="nav-link" to="/users">Users</NavLink>
+                                    <NavLink className="nav-link" to="/authors">Authors</NavLink>
                                 </li>
                             </ul>
                         </div>
                     </nav>
                     <div className="content main-div">
                         <Route exact path="/" component={TopicsPage}/>
-                        <Route path="/users" component={UsersPage}/>
+                        <Route path="/authors" component={AuthorsPage}/>
                         <Route exact path="/topic/:topicId" component={TopicPage}/>
                     </div>
                 </div>

@@ -7,5 +7,5 @@ data class SaveTopicResponseDTO(
         val title: String?,
         val createdAt: LocalDateTime?,
         val id: Long?,
-        val userId: Long?
+        val authorId: Long?
 )
