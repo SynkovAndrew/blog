@@ -3,6 +3,7 @@ package com.otus.spring.blog.controller
 import com.otus.spring.blog.dto.*
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.util.Maps
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -19,6 +20,11 @@ import java.time.LocalTime
 class CommentControllerIntegrationTest(
         @Autowired val restTemplate: TestRestTemplate
 ) {
+
+    @BeforeEach
+    fun setUp() {
+        restTemplate.withBasicAuth("morty", "guest")
+    }
 
     @Test
     fun `Save new comment`() {

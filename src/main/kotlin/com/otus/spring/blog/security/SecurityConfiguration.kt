@@ -17,11 +17,7 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
             .authorizeRequests()
             .anyRequest().authenticated()
             .and()
-            .formLogin()
-            .permitAll()
-            .and()
-            .logout()
-            .permitAll()
+            .httpBasic()
     }
 
     @Bean
